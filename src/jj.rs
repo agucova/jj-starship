@@ -222,7 +222,9 @@ pub fn collect(repo_root: &Path, id_length: usize, ancestor_depth: usize) -> Res
     // Always search ancestors if enabled (useful for stacked PR context)
     // Ancestor bookmarks are disjoint from direct bookmarks (different commits)
     if ancestor_depth > 0 {
-        let ancestors = find_ancestor_bookmarks(&repo, view, commit.parent_ids(), ancestor_depth)?;
+        // Cache parent_ids to avoid potential reallocation
+        let parent_ids = commit.parent_ids();
+        let ancestors = find_ancestor_bookmarks(&repo, view, parent_ids, ancestor_depth)?;
         bookmarks.extend(ancestors);
     }
 
