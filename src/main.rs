@@ -150,8 +150,10 @@ fn main() -> ExitCode {
         Command::Prompt => {
             if let Some(output) = run_prompt(&cwd, &config) {
                 print!("{output}");
+                ExitCode::SUCCESS
+            } else {
+                ExitCode::FAILURE
             }
-            ExitCode::SUCCESS
         }
         Command::Detect => {
             if detect::in_repo(&cwd) {

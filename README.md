@@ -42,7 +42,19 @@ Add to `~/.config/starship.toml`:
 ```toml
 [custom.jj]
 command = "jj-starship"
-when = "jj-starship detect"
+detect_folders = [".jj", ".git"]
+shell = ["sh"]
+format = "$output "
+```
+
+**Why these settings:**
+- `detect_folders` - Starship checks directory existence natively (no process spawn), only runs command in repos
+- `shell = ["sh"]` - Uses minimal POSIX shell, bypasses user's shell rc files (~100ms faster)
+- `format = "$output "` - Passes through jj-starship's ANSI colors directly
+
+For JJ repos only (keep native git modules for pure git repos):
+```toml
+detect_folders = [".jj"]
 ```
 
 To hide built-in modules when in a JJ repo:
@@ -54,8 +66,6 @@ disabled = true
 [git_status]
 disabled = true
 ```
-
-
 
 ## Output Format
 
@@ -151,14 +161,14 @@ Example configuration in a powerline prompt, for instance [Gruvbox Rainbow](http
 
 ```toml
 format = """
-[](color_orange)\
+[](color_orange)\
 $os\
 $username\
-[](bg:color_yellow fg:color_orange)\
+[](bg:color_yellow fg:color_orange)\
 $directory\
-[](fg:color_yellow bg:color_aqua)\
+[](fg:color_yellow bg:color_aqua)\
 ${custom.jj}\ # <- replace $git_branch $git_status here
-[](fg:color_aqua bg:color_blue)\
+[](fg:color_aqua bg:color_blue)\
 
 ...
 """
@@ -170,11 +180,12 @@ disabled = true
 disabled = true
 
 [custom.jj]
-symbol = ""
+symbol = ""
 style = "bg:color_aqua"
 format = '[[ $symbol $output ](fg:color_fg0 bg:color_aqua)]($style)'
 command = "jj-starship --no-color --no-symbol --no-jj-prefix --no-git-prefix"
-when = "jj-starship detect"
+detect_folders = [".jj", ".git"]
+shell = ["sh"]
 ```
 
 ## License
