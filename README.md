@@ -161,14 +161,14 @@ Example configuration in a powerline prompt, for instance [Gruvbox Rainbow](http
 
 ```toml
 format = """
-[](color_orange)\
+[](color_orange)\
 $os\
 $username\
-[](bg:color_yellow fg:color_orange)\
+[](bg:color_yellow fg:color_orange)\
 $directory\
-[](fg:color_yellow bg:color_aqua)\
+[](fg:color_yellow bg:color_aqua)\
 ${custom.jj}\ # <- replace $git_branch $git_status here
-[](fg:color_aqua bg:color_blue)\
+[](fg:color_aqua bg:color_blue)\
 
 ...
 """
@@ -180,7 +180,7 @@ disabled = true
 disabled = true
 
 [custom.jj]
-symbol = ""
+symbol = ""
 style = "bg:color_aqua"
 format = '[[ $symbol $output ](fg:color_fg0 bg:color_aqua)]($style)'
 command = "jj-starship --no-color --no-symbol --no-jj-prefix --no-git-prefix"
